@@ -6,6 +6,7 @@
 * [Radare2](https://github.com/radare/radare2)
 * [Firmware tools (fmk / qemu)](http://reverseengineering.stackexchange.com/questions/8829/cross-debugging-for-mips-elf-with-qemu-toolchain)
 * [Angr](https://github.com/angr/angr)
+* [ROPGadget](https://github.com/JonathanSalwan/ROPgadget)
 
 ## Install VirtualBox
 Check [Virtualbox](https://www.virtualbox.org/wiki/Downloads) for information on installing Virtualbox on your respective operating system.
@@ -68,6 +69,17 @@ source ~/angr/bin/activate
 python
 >>> import angr
 >>>
+```
+
+### ROPGadget
+
+Run the following commands in the VM:
+```
+ROPGadget
+```
+Expected output:
+```
+[Error] Need a binary filename (--binary/--console or --help)
 ```
 
 ### Shared folder
