@@ -141,3 +141,6 @@ wget https://raw.githubusercontent.com/CarlNeuhaus/config_files/master/vim/vimrc
 
 # Update time to aus/sydney
 sudo timedatectl set-timezone 'Australia/Sydney'
+
+# Install libc6-dev-i386 for cross compiling -m32
+sudo apt-get -y install libc6-dev-i386
