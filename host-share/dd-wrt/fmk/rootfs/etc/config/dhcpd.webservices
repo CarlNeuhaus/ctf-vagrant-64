@@ -1,0 +1,89 @@
+
+<fieldset>
+	<legend><% tran("service.dhcp_legend"); %></legend>
+	{e}"setting">
+		{e}"label"><% tran("service.dhcp_vendor"); %></div>
+		<input maxlength="79" size="20" name="dhcpc_vendorclass" value="<% nvram_get("dhcpc_vendorclass"); %>" />
+	</div>
+</fieldset><br />
+
+<fieldset>
+	<legend><% tran("service.dhcp_legend2"); %></legend>
+	<% nvram_invmatch("enable_jffs2","1","<!--"); %>
+	{e}"setting">
+		{e}"label"><% tran("service.dhcp_jffs2"); %></div>
+		{i}"checkbox" value="1" name="_dhcpd_usejffs" <% nvram_selmatch("dhcpd_usejffs", "1", "checked"); %> />
+	</div>
+	<% nvram_invmatch("enable_jffs2","1","-->"); %>
+	{e}"setting">
+		{e}"label"><% tran("service.dhcp_nvramlease"); %></div>
+		{i}"checkbox" value="1" name="_dhcpd_usenvram" <% nvram_selmatch("dhcpd_usenvram", "1", "checked"); %> />
+	</div>
+	{e}"setting">
+		{e}"label"><% tran("service.dhcp_domain"); %></div>
+		{s}"dhcp_domain">
+			{o}"wan" <% nvram_selmatch("dhcp_domain", "wan", "selected"); %> >WAN</option>
+			{o}"lan" <% nvram_selmatch("dhcp_domain", "lan", "selected"); %> >LAN &amp; WLAN</option>
+		</select>
+	</div>
+	{e}"setting">
+		{e}"label"><% tran("service.dhcp_landomain"); %></div>
+		<input maxlength="79" size="20" name="lan_domain" onblur="valid_name(this,service.dhcp_landomain,SPACE_NO)" value="<% nvram_get("lan_domain"); %>" />
+	</div>
+	<% nvram_invmatch("expert_mode","1","<!--"); %>
+	{e}"setting">
+		{e}"label"><% tran("service.dhcp_option"); %></div>
+		<textarea cols="60" rows="4" id="dhcpd_options" name="dhcpd_options"></textarea>
+		{m}
+			var dhcpd_options = fix_cr( '<% nvram_get("dhcpd_options"); %>' );
+			document.getElementById("dhcpd_options").value = dhcpd_options;
+		</script>
+	</div>
+	<% nvram_invmatch("expert_mode","1","-->"); %>
+    	<table class="table center">
+			<tr>
+				<th colspan="3"><% tran("share.static_lease"); %></th>
+			</tr>
+			<tr>
+				<th width="33%"><% tran("share.mac"); %></th>
+				<th width="34%"><% tran("share.hostname"); %></th>
+				<th width="33%"><% tran("share.ip"); %></th>
+			</tr>
+                        <% show_staticleases(); %>
+			<tr>
+				<td colspan="3">
+					{e}"center">
+						{m}{x}{i}\"button\" value=\"" + sbutton.add + "\" onclick=\"lease_add_submit(this.form)\" />")</script>
+						{m}{x}{i}\"button\" value=\"" + sbutton.remove + "\" onclick=\"lease_remove_submit(this.form)\" />")</script>
+					</div>
+				</td>
+			</tr>
+		</table>
+</fieldset><br/>
+
+<fieldset>
+		<legend><% tran("service.dnsmasq_legend"); %></legend>
+		{e}"setting">
+			{e}"label"><% tran("service.dnsmasq_srv"); %></div>
+			{c}"spaceradio" type="radio" name="dnsmasq_enable" value="1" <% nvram_checked("dnsmasq_enable", "1"); %> onclick="show_layer_ext(this, 'iddnsmasq', true)" /><% tran("share.enable"); %>&nbsp;
+			{c}"spaceradio" type="radio" name="dnsmasq_enable" value="0" <% nvram_checked("dnsmasq_enable", "0"); %> onclick="show_layer_ext(this, 'iddnsmasq', false)" /><% tran("share.disable"); %>
+		</div>
+		{n}"iddnsmasq">
+			{e}"setting">
+				{e}"label"><% tran("service.dnsmasq_loc"); %></div>
+				{c}"spaceradio" type="radio" name="local_dns" value="1" <% nvram_checked("local_dns", "1"); %> /><% tran("share.enable"); %>&nbsp;
+				{c}"spaceradio" type="radio" name="local_dns" value="0" <% nvram_checked("local_dns", "0"); %> /><% tran("share.disable"); %>
+			</div>
+			<% nvram_invmatch("expert_mode","1","<!--"); %>
+			{e}"setting">
+				{e}"label"><% tran("service.dnsmasq_opt"); %></div>
+					<textarea cols="60" rows="4" id="dnsmasq_options" name="dnsmasq_options"></textarea>
+					{m}
+						var dnsmasq_options = fix_cr( '<% nvram_get("dnsmasq_options"); %>' );
+						document.getElementById("dnsmasq_options").value = dnsmasq_options;
+					</script>
+			</div>
+			<% nvram_invmatch("expert_mode","1","-->"); %>
+		</div>
+</fieldset><br />
+

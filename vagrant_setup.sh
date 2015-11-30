@@ -138,3 +138,6 @@ vim +PluginInstall +qall
 # TODO this will be handled by stow
 cd ~
 wget https://raw.githubusercontent.com/CarlNeuhaus/config_files/master/vim/vimrc -O .vimrc
+
+# Update time to aus/sydney
+sudo timedatectl set-timezone 'Australia/Sydney'
