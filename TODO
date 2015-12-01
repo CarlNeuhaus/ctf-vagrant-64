@@ -1,4 +1,7 @@
 Fix stow, git clone issue
+Consolidate shared folders
+Consolidate tools - currently in ~ and ~/tools
+Dynamic hostnames - maybe from nsa name generator for lolz
 
 To add:
 afl - fuzzer
