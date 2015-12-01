@@ -1,11 +1,14 @@
 #!/bin/bash
 
+# Update time to aus/sydney
+sudo timedatectl set-timezone 'Australia/Sydney'
+
 # Updates
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
 sudo apt-get -y install python3-pip
-sudo apt-get -y install tmux
+sudo apt-get -y install screen
 sudo apt-get -y install gdb gdb-multiarch
 sudo apt-get -y install unzip
 sudo apt-get -y install foremost
@@ -17,20 +20,20 @@ sudo apt-get -y install libc6-armhf-armel-cross
 sudo apt-get -y install debian-keyring
 sudo apt-get -y install debian-archive-keyring
 sudo apt-get -y install emdebian-archive-keyring
-tee /etc/apt/sources.list.d/emdebian.list << EOF
+sudo tee /etc/apt/sources.list.d/emdebian.list << EOF
 deb http://mirrors.mit.edu/debian squeeze main
 deb http://www.emdebian.org/debian squeeze main
 EOF
 sudo apt-get -y install libc6-mipsel-cross
 sudo apt-get -y install libc6-arm-cross
+sudo apt-get -y install libc6-dev-i386 
 
 if [ ! -d "/etc/qemu-binfmt" ]; then
-  mkdir /etc/qemu-binfmt
-  ln -s /usr/mipsel-linux-gnu /etc/qemu-binfmt/mipsel 
-  ln -s /usr/arm-linux-gnueabihf /etc/qemu-binfmt/arm
-  rm /etc/apt/sources.list.d/emdebian.list
+  sudo mkdir /etc/qemu-binfmt
+  sudo ln -s /usr/mipsel-linux-gnu /etc/qemu-binfmt/mipsel 
+  sudo ln -s /usr/arm-linux-gnueabihf /etc/qemu-binfmt/arm
+  sudo rm /etc/apt/sources.list.d/emdebian.list
 fi
-# sudo apt-get update
 
 # Install Binjitsu
 sudo apt-get -y install python2.7 python-pip python-dev git
@@ -91,13 +94,25 @@ sudo pip2 uninstall capstone -y
 cd ~/tools/capstone/bindings/python
 sudo python setup.py install
 
+# Install zsh
+sudo apt-get -y install zsh
+
+# Install oh-my-zsh
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+
 # Personal config
 sudo sudo apt-get -y install stow
 cd /home/vagrant
 rm .bashrc
-git clone https://github.com/thebarbershopper/dotfiles
+rm .zshrc
+rm -rf .oh-my-zsh
+rm -rf .vim
+git clone https://github.com/CarlNeuhaus/dotfiles
 cd dotfiles
 ./install.sh
+
+# Install vim plugins
+vim +PluginInstall +qall
 
 # Install Angr
 cd /home/vagrant
@@ -114,33 +129,3 @@ if [ ! -d "~/tools/ROPgadget" ]; then
   cd ROPgadget
   sudo python setup.py install
 fi
-
-# Install zsh
-sudo apt-get -y install zsh
-
-# Install oh-my-zsh
-sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
-
-# Install z.sh
-cd ~
-wget https://raw.githubusercontent.com/rupa/z/master/z.sh -O .z.sh
-
-# Update .zshrc
-# TODO this will be handled by stow
-cd
-wget https://raw.githubusercontent.com/CarlNeuhaus/config_files/master/zsh/zshrc -O .zshrc
-
-# Install vundle into vim
-git clone https://github.com/VundleVim/Vundle.vim.git ~/.vim/bundle/Vundle.vim
-vim +PluginInstall +qall
-
-# Update .vimrc
-# TODO this will be handled by stow
-cd ~
-wget https://raw.githubusercontent.com/CarlNeuhaus/config_files/master/vim/vimrc -O .vimrc
-
-# Update time to aus/sydney
-sudo timedatectl set-timezone 'Australia/Sydney'
-
-# Install libc6-dev-i386 for cross compiling -m32
-sudo apt-get -y install libc6-dev-i386
