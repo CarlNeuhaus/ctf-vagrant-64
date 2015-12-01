@@ -29,26 +29,31 @@ sudo apt-get -y install libc6-arm-cross
 sudo apt-get -y install libc6-dev-i386 
 
 if [ ! -d "/etc/qemu-binfmt" ]; then
-  sudo mkdir /etc/qemu-binfmt
-  sudo ln -s /usr/mipsel-linux-gnu /etc/qemu-binfmt/mipsel 
-  sudo ln -s /usr/arm-linux-gnueabihf /etc/qemu-binfmt/arm
-  sudo rm /etc/apt/sources.list.d/emdebian.list
+  sudo mkdir /etc/qemu-binfmt;
+  sudo ln -s /usr/mipsel-linux-gnu /etc/qemu-binfmt/mipsel;
+  sudo ln -s /usr/arm-linux-gnueabihf /etc/qemu-binfmt/arm;
+  sudo rm /etc/apt/sources.list.d/emdebian.list;
 fi
 
 # Install Binjitsu
-sudo apt-get -y install python2.7 python-pip python-dev git
-sudo pip install --upgrade git+https://github.com/binjitsu/binjitsu.git
+# because fuck it
+if ! pip show binjitsu > /dev/null 2>&1 ; then
+  sudo apt-get -y install python2.7 python-pip python-dev git
+  sudo pip install git+https://github.com/binjitsu/binjitsu.git
+fi
 
 cd
 mkdir tools
 cd tools
 
 # Install pwndbg
-git clone https://github.com/zachriggle/pwndbg
-echo source `pwd`/pwndbg/gdbinit.py >> ~/.gdbinit
+if [ ! -d "$HOME/tools/pwndg" ]; then
+  git clone https://github.com/zachriggle/pwndbg
+  echo source `pwd`/pwndbg/gdbinit.py >> ~/.gdbinit
+fi
 
 # Capstone for pwndbg
-if [ ! -d "~/tools/capstone" ]; then
+if [ ! -d "$HOME/tools/capstone" ]; then
   git clone https://github.com/aquynh/capstone
   cd capstone
   git checkout -t origin/next
@@ -58,7 +63,9 @@ if [ ! -d "~/tools/capstone" ]; then
 fi
 
 # pycparser for pwndbg
-sudo pip3 install pycparser # Use pip3 for Python3
+if ! pip3 show pycparser > /dev/null 2>&1 ; then
+  sudo pip3 install pycparser # Use pip3 for Python3
+fi
 
 # Install radare2
 if [ ! -d "/usr/share/radare2" ]; then
@@ -69,7 +76,7 @@ fi
 
 # Install binwalk
 cd 
-if [ ! -d "~/binwalk" ]; then
+if [ ! -d "$HOME/binwalk" ]; then
   git clone https://github.com/devttys0/binwalk
   cd binwalk
   sudo python setup.py install
@@ -77,7 +84,7 @@ fi
 
 # Install Firmware-Mod-Kit
 sudo apt-get -y install git build-essential zlib1g-dev liblzma-dev python-magic
-if [ ! -d "~/tools/fmk" ]; then
+if [ ! -d "$HOME/tools/fmk" ]; then
   cd ~/tools
   wget https://firmware-mod-kit.googlecode.com/files/fmk_099.tar.gz
   tar xvf fmk_099.tar.gz
@@ -112,7 +119,8 @@ cd dotfiles
 ./install.sh
 
 # Install vim plugins
-vim +PluginInstall +qall
+# Probably not needed anymore because .vim is synced
+#vim +PluginInstall +qall
 
 # Install Angr
 cd /home/vagrant
@@ -123,7 +131,7 @@ source angr/bin/activate
 pip install angr --upgrade
 
 # Install ropgadget
-if [ ! -d "~/tools/ROPgadget" ]; then
+if [ ! -d "$HOME/tools/ROPgadget" ]; then
   cd ~/tools
   git clone https://github.com/JonathanSalwan/ROPgadget
   cd ROPgadget
