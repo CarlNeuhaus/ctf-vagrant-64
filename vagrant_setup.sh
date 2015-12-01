@@ -137,3 +137,10 @@ if [ ! -d "$HOME/tools/ROPgadget" ]; then
   cd ROPgadget
   sudo python setup.py install
 fi
+
+# ctf-tools installers
+cd
+if [ ! -d "$HOME/installers" ]; then
+  mkdir installers
+  git clone https://github.com/CarlNeuhaus/ctf-tools
+fi
