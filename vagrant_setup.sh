@@ -142,5 +142,6 @@ fi
 cd
 if [ ! -d "$HOME/installers" ]; then
   mkdir installers
+  cd installers
   git clone https://github.com/CarlNeuhaus/ctf-tools
 fi
