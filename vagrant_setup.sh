@@ -47,7 +47,7 @@ mkdir tools
 cd tools
 
 # Install pwndbg
-if [ ! -d "$HOME/tools/pwndg" ]; then
+if [ ! -d "$HOME/tools/pwndbg" ]; then
   git clone https://github.com/zachriggle/pwndbg
   echo source `pwd`/pwndbg/gdbinit.py >> ~/.gdbinit
 fi
