@@ -1,9 +1,12 @@
 #!/bin/bash
 
+_update=0 
+
 # Update time to aus/sydney
 sudo timedatectl set-timezone 'Australia/Sydney'
 
 # Updates
+if [ "_update" =  true ]; then
 sudo apt-get -y update
 sudo apt-get -y upgrade
 
@@ -27,6 +30,7 @@ EOF
 sudo apt-get -y install libc6-mipsel-cross
 sudo apt-get -y install libc6-arm-cross
 sudo apt-get -y install libc6-dev-i386 
+fi
 
 if [ ! -d "/etc/qemu-binfmt" ]; then
   sudo mkdir /etc/qemu-binfmt;
@@ -83,8 +87,8 @@ if [ ! -d "$HOME/tools/binwalk" ]; then
 fi
 
 # Install Firmware-Mod-Kit
-sudo apt-get -y install git build-essential zlib1g-dev liblzma-dev python-magic
 if [ ! -d "$HOME/tools/fmk" ]; then
+  sudo apt-get -y install git build-essential zlib1g-dev liblzma-dev python-magic
   cd $HOME/tools
   wget https://firmware-mod-kit.googlecode.com/files/fmk_099.tar.gz
   tar xvf fmk_099.tar.gz
@@ -124,11 +128,13 @@ cd dotfiles
 
 # Install Angr
 cd $HOME/tools
-sudo apt-get -y install python-dev libffi-dev build-essential virtualenvwrapper
-sudo pip install virtualenv
-virtualenv angr
-source angr/bin/activate
-pip install angr --upgrade
+if [ ! -d "$HOME/tools/angr" ]; then
+  sudo apt-get -y install python-dev libffi-dev build-essential virtualenvwrapper
+  sudo pip install virtualenv
+  virtualenv angr
+  source angr/bin/activate
+  pip install angr --upgrade
+fi
 
 # Install ropgadget
 if [ ! -d "$HOME/tools/ROPgadget" ]; then
@@ -148,6 +154,6 @@ fi
 
 # preeny - bunch of preload libraries to pwn shit
 cd $HOME/tools
-if [ ! -d "$HOME/preeny" ]; then
+if [ ! -d "$HOME/tools/preeny" ]; then
   git clone https://github.com/CarlNeuhaus/preeny
 fi
