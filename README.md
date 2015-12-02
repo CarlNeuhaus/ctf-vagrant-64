@@ -7,6 +7,7 @@
 * [Firmware tools (fmk / qemu)](http://reverseengineering.stackexchange.com/questions/8829/cross-debugging-for-mips-elf-with-qemu-toolchain)
 * [Angr](https://github.com/angr/angr)
 * [ROPGadget](https://github.com/JonathanSalwan/ROPgadget)
+* [preeny](https://github.com/zardus/preeny)
 
 ## Install VirtualBox
 Check [Virtualbox](https://www.virtualbox.org/wiki/Downloads) for information on installing Virtualbox on your respective operating system.

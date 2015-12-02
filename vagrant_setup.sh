@@ -75,8 +75,8 @@ if [ ! -d "/usr/share/radare2" ]; then
 fi
 
 # Install binwalk
-cd 
-if [ ! -d "$HOME/binwalk" ]; then
+cd $HOME/tools 
+if [ ! -d "$HOME/tools/binwalk" ]; then
   git clone https://github.com/devttys0/binwalk
   cd binwalk
   sudo python setup.py install
@@ -85,7 +85,7 @@ fi
 # Install Firmware-Mod-Kit
 sudo apt-get -y install git build-essential zlib1g-dev liblzma-dev python-magic
 if [ ! -d "$HOME/tools/fmk" ]; then
-  cd ~/tools
+  cd $HOME/tools
   wget https://firmware-mod-kit.googlecode.com/files/fmk_099.tar.gz
   tar xvf fmk_099.tar.gz
   rm fmk_099.tar.gz
@@ -123,7 +123,7 @@ cd dotfiles
 #vim +PluginInstall +qall
 
 # Install Angr
-cd /home/vagrant
+cd $HOME/tools
 sudo apt-get -y install python-dev libffi-dev build-essential virtualenvwrapper
 sudo pip install virtualenv
 virtualenv angr
@@ -139,9 +139,15 @@ if [ ! -d "$HOME/tools/ROPgadget" ]; then
 fi
 
 # ctf-tools installers
-cd
-if [ ! -d "$HOME/installers" ]; then
+cd $HOME/tools
+if [ ! -d "$HOME/tools/installers" ]; then
   mkdir installers
   cd installers
   git clone https://github.com/CarlNeuhaus/ctf-tools
+fi
+
+# preeny - bunch of preload libraries to pwn shit
+cd $HOME/tools
+if [ ! -d "$HOME/preeny" ]; then
+  git clone https://github.com/CarlNeuhaus/preeny
 fi
