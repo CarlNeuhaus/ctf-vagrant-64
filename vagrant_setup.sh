@@ -9,8 +9,8 @@ sudo timedatectl set-timezone 'Australia/Sydney'
 if [ "_update" =  true ]; then
 sudo apt-get -y update
 sudo apt-get -y upgrade
-sudo apt-get -y install git
 
+sudo apt-get -y install git
 sudo apt-get -y install python3-pip
 sudo apt-get -y install screen
 sudo apt-get -y install gdb gdb-multiarch
