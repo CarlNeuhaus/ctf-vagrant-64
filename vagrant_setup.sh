@@ -9,6 +9,7 @@ sudo timedatectl set-timezone 'Australia/Sydney'
 if [ "_update" =  true ]; then
 sudo apt-get -y update
 sudo apt-get -y upgrade
+sudo apt-get -y install git
 
 sudo apt-get -y install python3-pip
 sudo apt-get -y install screen
@@ -88,7 +89,7 @@ fi
 
 # Install Firmware-Mod-Kit
 if [ ! -d "$HOME/tools/fmk" ]; then
-  sudo apt-get -y install git build-essential zlib1g-dev liblzma-dev python-magic
+  sudo apt-get -y build-essential zlib1g-dev liblzma-dev python-magic
   cd $HOME/tools
   wget https://firmware-mod-kit.googlecode.com/files/fmk_099.tar.gz
   tar xvf fmk_099.tar.gz
