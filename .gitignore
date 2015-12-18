@@ -1,3 +1,4 @@
 .vagrant/*
 host-share/*
 .DS_Store
+.vagrant/*
