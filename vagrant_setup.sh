@@ -1,6 +1,6 @@
 #!/bin/bash
 
-_update=1
+_update=true
 
 # Update time to aus/sydney
 sudo timedatectl set-timezone 'Australia/Sydney'
