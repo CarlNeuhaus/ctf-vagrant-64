@@ -9,7 +9,7 @@ Vagrant.configure("2") do |config|
   config.ssh.forward_agent = true
 
   config.vm.synced_folder "host-share", "/home/vagrant/host-share"
-  config.vm.synced_folder "/Users/cyber/Desktop/shared", "/home/vagrant/multi-shared"
+  config.vm.synced_folder "~/Desktop/shared", "/home/vagrant/multi-shared"
 
   config.vm.provider "virtualbox" do |vb|
     vb.customize ["modifyvm", :id, "--memory", "2048"]
