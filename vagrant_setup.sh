@@ -91,12 +91,7 @@ fi
 if [ ! -d "$HOME/tools/fmk" ]; then
   sudo apt-get -y build-essential zlib1g-dev liblzma-dev python-magic
   cd $HOME/tools
-  wget https://firmware-mod-kit.googlecode.com/files/fmk_099.tar.gz
-  tar xvf fmk_099.tar.gz
-  rm fmk_099.tar.gz
-  cd fmk_099/src
-  ./configure
-  make
+  git clone https://github.com/mirror/firmware-mod-kit
 fi
 
 # Uninstall capstone
